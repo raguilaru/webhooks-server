@@ -38,19 +38,18 @@ https://raguilaru1.free.beeceptor.com, https://raguilaru2.free.beeceptor.com and
 They can be monitored here respectively:
 https://beeceptor.com/console/raguilaru1, https://beeceptor.com/console/raguilaru2, https://beeceptor.com/console/raguilaru3
 
-The token is required, and should be at least 3 characters long. The token will be hashed (sha-1), and will be part of the request headers when webhooks are triggered. More information in the trigger section below.
+The token is required, and should be at least 3 characters long. The token will be hashed (sha-1), and will be part of the request headers and the request body when webhooks are triggered. More information in the trigger section below.
 
 ### Triggering webhooks
 
-After registering the webhooks (as shown in the previous section), you may trigger them by creating a POST request to 'http://localhost:9876/api/webhooks/test'. You may also include a request body such as:
+After registering the webhooks (as shown in the previous section), you may trigger them by creating a POST request to 'http://localhost:9876/api/webhooks/test'. You may also include a "payload" property in the request body such as:
 ```json
 {
   "payload": ["any", { "valid": "JSON" }]
 }
 ```
-This content will be included as part of the request body in each request made by the server to each webhook.
-
-Every request will also include the heading 'x-webhook-signature-256', that contains a hashed value (sha-1) based on the token provided at the moment of the registration. This is of course, so the clients can authenticate the request and process them.
+This "payload" property will be included in each request made by the server to each webhook.
+These requests will also include the property "token" in the request body, and also in the heading 'x-webhook-signature-256'. Instead of containing the original token, it contains the hashed value (sha-1), as a security measure as is customary in these types of systems.
 
 ## Tests
 

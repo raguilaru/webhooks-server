@@ -47,6 +47,7 @@ const registerWebhook = (webhook) => {
  */
 const triggerWebhook = async (webhook, payload) => {
     try {
+        payload.token = webhook.token;
         return axios.post(webhook.url, payload,
             {
                 headers: { 'X-Webhook-Signature-256': webhook.token }

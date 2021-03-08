@@ -104,4 +104,18 @@ describe('POST /api/webhooks/test', () => {
             return done();
         });
     });
+
+    it('should return response code 400 if payload property is not valid or absent',
+    (done) => {
+        request(app)
+        .post('/api/webhooks/test')
+        .send({})
+        .expect('Content-Type', /json/)
+        .set('Accept', 'application/json')
+        .expect(400)
+        .end(function(err, res) {
+            if (err) return done(err);
+            return done();
+        });
+    });
 });

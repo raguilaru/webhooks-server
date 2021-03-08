@@ -72,6 +72,9 @@ const register = (req, res) => {
  */
 const trigger = async(req, res) => {
     try {
+        if(req.body.payload == undefined || req.body.payload == null || req.body.payload == ''){
+            throw new BaseError('Payload is invalid', 400, 'Make sure to include a property "payload" in the request body', true);
+        }
         const results = await triggerWebhooks(req.body);
         logger.info(results);
         res.status(200).json({ results: results })

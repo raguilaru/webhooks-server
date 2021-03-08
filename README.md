@@ -1,5 +1,5 @@
 # Webhook server
-This is a webhook server
+This is exercise is a small webhook server.
 
 ## Install dependencies
 ```bash
